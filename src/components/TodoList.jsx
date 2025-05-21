@@ -82,21 +82,27 @@ function TodoList() {
           <div className={styles.filterButtons}>
             <button
               onClick={() => setFilter("ALL")}
-              className={styles.filterButton}
+              className={`${styles.filterButton} ${
+                filter === "ALL" ? styles.active : ""
+              }`}
             >
               {" "}
               ALL{" "}
             </button>
             <button
               onClick={() => setFilter("COMPLETED")}
-              className={styles.filterButton}
+              className={`${styles.filterButton} ${
+                filter === "COMPLETED" ? styles.active : ""
+              }`}
             >
               {" "}
               COMPLETED{" "}
             </button>
             <button
               onClick={() => setFilter("ACTIVE")}
-              className={styles.filterButton}
+              className={`${styles.filterButton} ${
+                filter === "ACTIVE" ? styles.active : ""
+              }`}
             >
               {" "}
               ACTIVE{" "}
@@ -104,7 +110,7 @@ function TodoList() {
           </div>
         </ul>
       </div>
-      <div className={styles.numberOfTodo}>Have to {todos.length}</div>
+      <div className={styles.numberOfTodo}> {todos.length} items left</div>
     </>
   );
 }
