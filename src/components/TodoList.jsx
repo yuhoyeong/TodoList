@@ -63,7 +63,6 @@ function TodoList() {
                 <button
                   className={styles.checkButton}
                   onClick={() => ToggleTodo(todo.id)}
-                  aria-label="완료"
                 >
                   {todo.completed ? "✔" : "✓"}
                 </button>
@@ -72,7 +71,6 @@ function TodoList() {
                   onClick={() =>
                     setTodos(todos.filter((t) => t.id !== todo.id))
                   }
-                  aria-label="삭제"
                 >
                   🗑
                 </button>
@@ -111,6 +109,7 @@ function TodoList() {
         </ul>
       </div>
       <div className={styles.numberOfTodo}> {todos.length} items left</div>
+      
     </>
   );
 }
