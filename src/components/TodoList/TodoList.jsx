@@ -1,10 +1,21 @@
+import { useState, useEffect } from "react";
 import styles from "./TodoList.module.css";
-import { useState } from "react";
+import Clock from "../Clock/Clock";
+import Weather from "../weather/weather";
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
+function TodoApp() {
+  // localStorage에서 초기값 불러오기
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
   const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState("ALL");
+
+  // todos가 변경될 때마다 localStorage에 저장
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const AddTodo = (e) => {
     e.preventDefault();
@@ -25,6 +36,11 @@ function TodoList() {
     );
   };
 
+  // 삭제 함수 수정
+  const DeleteTodo = (id) => {
+    setTodos(todos.filter((t) => t.id !== id));
+  };
+
   const FilteredTodos = todos.filter((todo) => {
     if (filter === "COMPLETED") return todo.completed;
     if (filter === "ACTIVE") return !todo.completed;
@@ -34,6 +50,8 @@ function TodoList() {
   return (
     <>
       <div className={styles.todoApp}>
+        <Clock />
+        <Weather />
         <h1 className={styles.title}>TODO LIST</h1>
         <header className={styles.header}>
           <form onSubmit={AddTodo}>
@@ -68,9 +86,7 @@ function TodoList() {
                 </button>
                 <button
                   className={styles.deleteButton}
-                  onClick={() =>
-                    setTodos(todos.filter((t) => t.id !== todo.id))
-                  }
+                  onClick={() => DeleteTodo(todo.id)}
                 >
                   🗑
                 </button>
@@ -109,9 +125,12 @@ function TodoList() {
         </ul>
       </div>
       <div className={styles.numberOfTodo}> {todos.length} items left</div>
-      
     </>
   );
+}
+
+function TodoList() {
+  return <TodoApp />;
 }
 
 export default TodoList;

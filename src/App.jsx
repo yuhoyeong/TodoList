@@ -1,9 +1,13 @@
 import React from "react";
-import TodoList from "./components/TodoList";
-import Hamster from "./components/Hamster";
+import TodoList from "./components/TodoList/TodoList";
+import Clock from "./components/Clock/Clock";
 
 function App() {
-  return <Hamster />;
+  return (
+    <>
+      <TodoList />
+    </>
+  );
 }
 
 export default App;
